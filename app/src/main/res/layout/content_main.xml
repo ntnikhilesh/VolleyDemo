@@ -26,12 +26,16 @@
         android:text="Get Resp"
         android:layout_marginTop="50dp"
         android:layout_below="@+id/tv_server_response"/>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_get_resp"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/button_get_resp"
+
         android:layout_marginTop="20dp">
 
         <ImageView
@@ -39,7 +43,7 @@
             android:layout_height="200dp"
             android:id="@+id/iv_server_img"
             android:layout_marginTop="10dp"
-            android:src="@color/colorAccent"/>
+            android:src="@mipmap/ic_launcher"/>
 
         <Button
             android:layout_width="match_parent"
@@ -47,5 +51,15 @@
             android:id="@+id/button_get_image"
             android:layout_marginTop="20dp"
             android:text="Get Image"/>
-    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/button_get_json"
+        android:layout_marginTop="20dp"
+        android:text="Get json data"
+        android:layout_marginBottom="20dp"/>
+</LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

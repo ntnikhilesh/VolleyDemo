@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,15 +20,21 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
     TextView server_response;
-    Button get_response,get_image;
+    Button get_response,get_image,get_JSON;
     ImageView profile_image;
+
     String server_url="http://172.16.0.2/greetings.php";
     String server_url1="http://172.16.0.2/nikhil1.jpg";
+    String json_url="http://172.16.0.2/getinfo.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,44 @@ public class MainActivity extends AppCompatActivity {
         get_response=(Button)findViewById(R.id.button_get_resp);
         get_image=(Button)findViewById(R.id.button_get_image);
         profile_image=(ImageView)findViewById(R.id.iv_server_img);
+        get_JSON=(Button)findViewById(R.id.button_get_json);
+
+
+        //Get JSON response from server
+        get_JSON.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//Null is used for request body
+                JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.POST, json_url, (String)null,
+                        new Response.Listener<JSONObject>() {
+
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    Log.d("json response","-"+response.getString("Name"));
+                                    server_response.setText("Name - "+response.getString("Name")+"\n"+
+                                            "User Name - "+response.getString("User Name")+"\n"+
+                                            "User Pass - "+response.getString("User Pass"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MainActivity.this,"Something went wrong...",Toast.LENGTH_LONG).show();
+                        error.printStackTrace();
+
+                    }
+                });
+
+                //Add request to Request Queue
+                // requestQueue.add(stringRequest);
+                Mysingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
+            }
+        });
 
 
 
