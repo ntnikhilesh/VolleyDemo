@@ -1,5 +1,6 @@
 package com.example.dell.volleydemo;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,19 +10,24 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity {
     TextView server_response;
-    Button get_response;
+    Button get_response,get_image;
+    ImageView profile_image;
     String server_url="http://172.16.0.2/greetings.php";
+    String server_url1="http://172.16.0.2/nikhil1.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
         server_response=(TextView)findViewById(R.id.tv_server_response);
         get_response=(Button)findViewById(R.id.button_get_resp);
+        get_image=(Button)findViewById(R.id.button_get_image);
+        profile_image=(ImageView)findViewById(R.id.iv_server_img);
 
+
+
+        //Get text response from Server
         get_response.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,6 +83,38 @@ public class MainActivity extends AppCompatActivity {
                 //Add request to Request Queue
                // requestQueue.add(stringRequest);
                 Mysingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+            }
+        });
+
+
+//Get image from Serrver
+        get_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final ImageRequest imageRequest=new ImageRequest(server_url1,
+                        new Response.Listener<Bitmap>() {
+                            @Override
+                            public void onResponse(Bitmap response) {
+                                profile_image.setImageBitmap(response);
+
+                            }
+                        }, 0, 0, ImageView.ScaleType.CENTER_CROP, null,
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                                Toast.makeText(MainActivity.this,"Something went wrong...",Toast.LENGTH_LONG).show();
+                                error.printStackTrace();
+
+                            }
+
+
+                        }); //0 represnt the exact size of the Image
+
+                //Add request to Request Queue
+                Mysingleton.getInstance(getApplicationContext()).addToRequestQueue(imageRequest);
 
             }
         });
