@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Create request queue
-                final RequestQueue requestQueue= Volley.newRequestQueue(MainActivity.this);
+                //final RequestQueue requestQueue= Volley.newRequestQueue(MainActivity.this);
 
                 //Create String Request(1st argument -Method type,2-URL,3, Response Listner , Error Listner
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, server_url,
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onResponse(String response) {
                                 server_response.setText(response);
                                 //stop request queue
-                                requestQueue.stop();
+                                //requestQueue.stop();
 
                             }
                         }, new Response.ErrorListener() {
@@ -64,13 +64,15 @@ public class MainActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         server_response.setText("Something went wrong...");
                         error.printStackTrace();
-                        requestQueue.stop();
+                        //requestQueue.stop();
 
                     }
                 });
 
                 //Add request to Request Queue
-                requestQueue.add(stringRequest);
+               // requestQueue.add(stringRequest);
+                Mysingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
             }
         });
 
