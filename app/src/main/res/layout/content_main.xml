@@ -59,6 +59,14 @@
         android:layout_marginTop="20dp"
         android:text="Get json data"
         android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/button_show_jsonarray"
+            android:layout_marginTop="20dp"
+            android:text="Get json Array"
+            android:layout_marginBottom="20dp"/>
 </LinearLayout>
     </ScrollView>
 

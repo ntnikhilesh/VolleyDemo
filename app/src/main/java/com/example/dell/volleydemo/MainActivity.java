@@ -1,5 +1,6 @@
 package com.example.dell.volleydemo;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,20 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     TextView server_response;
-    Button get_response,get_image,get_JSON;
+    Button get_response,get_image,get_JSON,get_JSONArray;
     ImageView profile_image;
 
     String server_url="http://172.16.0.2/greetings.php";
@@ -52,12 +51,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         server_response=(TextView)findViewById(R.id.tv_server_response);
         get_response=(Button)findViewById(R.id.button_get_resp);
         get_image=(Button)findViewById(R.id.button_get_image);
         profile_image=(ImageView)findViewById(R.id.iv_server_img);
         get_JSON=(Button)findViewById(R.id.button_get_json);
+        get_JSONArray=(Button)findViewById(R.id.button_show_jsonarray);
+
+
+        //Show JSON Array on Recycler View
+        get_JSONArray.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Get JSON Array from server
+                Intent intent=new Intent(MainActivity.this,ShowJsonArray.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         //Get JSON response from server
