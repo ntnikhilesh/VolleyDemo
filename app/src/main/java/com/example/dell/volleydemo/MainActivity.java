@@ -1,10 +1,12 @@
 package com.example.dell.volleydemo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -26,14 +29,20 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
     TextView server_response;
-    Button get_response,get_image,get_JSON,get_JSONArray;
+    Button get_response,get_image,get_JSON,get_JSONArray,insert_data;
     ImageView profile_image;
 
     String server_url="http://172.16.0.2/greetings.php";
     String server_url1="http://172.16.0.2/nikhil1.jpg";
     String json_url="http://172.16.0.2/getinfo.php";
+    String insert_url="http://172.16.0.2/updateinfo.php";
+
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +66,57 @@ public class MainActivity extends AppCompatActivity {
         profile_image=(ImageView)findViewById(R.id.iv_server_img);
         get_JSON=(Button)findViewById(R.id.button_get_json);
         get_JSONArray=(Button)findViewById(R.id.button_show_jsonarray);
+        builder=new AlertDialog.Builder(MainActivity.this);
+        insert_data=(Button)findViewById(R.id.button_insert_data);
+
+
+        //Insert Data into DB
+        insert_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                StringRequest stringRequest=new StringRequest(Request.Method.POST, insert_url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                                builder.setTitle("Server Response");
+                                builder.setMessage("Response : "+response);
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                });
+                                AlertDialog alertDialog=builder.create();
+                                alertDialog.show();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Toast.makeText(MainActivity.this,"Something went wrong with insertion...",Toast.LENGTH_LONG).show();
+                        error.printStackTrace();
+
+                    }
+
+
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String,String> prams=new HashMap<String, String>();
+                        prams.put("name","prince");
+                        prams.put("user_name","prince123");
+                        prams.put("user_pass","prince@123");
+                        return prams;
+                    }
+                };
+
+
+                //Add request to Request Queue
+                Mysingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+            }
+        });
 
 
         //Show JSON Array on Recycler View
