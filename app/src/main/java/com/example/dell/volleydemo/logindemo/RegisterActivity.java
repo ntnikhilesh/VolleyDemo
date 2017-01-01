@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         final String register_url="http://172.16.0.2/logindemo/register.php";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        builder=new AlertDialog.Builder(RegisterActivity.this);
         rname=(EditText)findViewById(R.id.et_rname);
         remail=(EditText)findViewById(R.id.et_remail);
         ruser_name=(EditText)findViewById(R.id.et_ruser_name);
@@ -73,12 +74,12 @@ public class RegisterActivity extends AppCompatActivity {
                                 try {
                                     JSONArray jsonArray = new JSONArray(response);
                                     JSONObject jsonObject = jsonArray.getJSONObject(0);
-                                    //String code=jsonObject.getString("code");
+                                    String code=jsonObject.getString("code");
                                     String message = jsonObject.getString("message");
-                                    // builder.setTitle("Server Response...");
-                                    // builder.setMessage(message);
-                                    // displayAlert(code);
-                                    Toast.makeText(RegisterActivity.this, "*" + message, Toast.LENGTH_LONG).show();
+                                     builder.setTitle("Server Response...");
+                                    builder.setMessage(message);
+                                     displayAlert(code);
+                                    //Toast.makeText(RegisterActivity.this, "*" + message, Toast.LENGTH_LONG).show();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -128,8 +129,8 @@ builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
         }
         else if(code.equals("reg success.."))
         {
-            Toast.makeText(RegisterActivity.this,""+code,Toast.LENGTH_LONG).show();
-            //finish();
+            //Toast.makeText(RegisterActivity.this,""+code,Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 });

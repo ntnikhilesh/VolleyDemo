@@ -19,7 +19,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Login Page" />
+            android:textSize="20sp"
+            android:text="Login Page"
+            android:gravity="center"/>
 
         <EditText
             android:id="@+id/et_luser_name"
