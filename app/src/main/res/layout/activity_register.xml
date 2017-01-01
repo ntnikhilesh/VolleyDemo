@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.dell.volleydemo.logindemo.RegisterActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Wlcome to Register Page..."/>
+
+        <EditText
+            android:id="@+id/et_rname"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Enter name.."/>
+
+        <EditText
+            android:id="@+id/et_remail"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Enter email.."/>
+        <EditText
+            android:id="@+id/et_ruser_name"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="user name.."/>
+        <EditText
+            android:id="@+id/et_ruser_pass"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="password.."/>
+
+        <Button
+            android:id="@+id/button_register"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Register"/>
+
+        <Button
+            android:id="@+id/button_rgoto_login"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Let me login"/>
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

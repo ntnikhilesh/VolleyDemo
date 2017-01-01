@@ -25,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.example.dell.volleydemo.logindemo.LoginActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +35,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     TextView server_response;
-    Button get_response,get_image,get_JSON,get_JSONArray,insert_data;
+    Button get_response,get_image,get_JSON,get_JSONArray,insert_data,let_melogin;
     ImageView profile_image;
 
     String server_url="http://172.16.0.2/greetings.php";
@@ -68,6 +69,17 @@ public class MainActivity extends AppCompatActivity {
         get_JSONArray=(Button)findViewById(R.id.button_show_jsonarray);
         builder=new AlertDialog.Builder(MainActivity.this);
         insert_data=(Button)findViewById(R.id.button_insert_data);
+        let_melogin=(Button)findViewById(R.id.button_mgoto_login_page);
+
+        //Goto login page
+let_melogin.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+
+        Intent intent=new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
+});
 
 
         //Insert Data into DB
